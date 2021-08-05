@@ -5,7 +5,7 @@ const app = express()
 
 app.get('/',(req,res) => {
     // res.send('hi')
-    fs.readFile('index.html',(error,data) => {
+    fs.readFile('./index.html',(error,data) => {
         if(error) {
         // res.writeHead(404)
         res.send('error')    
