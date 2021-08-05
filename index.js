@@ -8,19 +8,17 @@ const server = http.createServer((req,res) => {
     const filename = pathname === '/' ? './index.html' : 
             pathname === '/contact' ? './contact-me.html' :
             pathname === '/about' ? './about.html' : '404.html'
-    
-    // console.log(filename)
 
     fs.readFile(filename, (error, data) => {
         if(error) {
-            res.statusCode = 404
-            res.setHeader('Content-Type','text/html')
-            res.end('<h1>Error 404</h1>')
+            res.writeHead(404)
+            res.write('Error 404')
+            
         } else {
-            res.statusCode = 200
-            res.setHeader('Content-Type','text/html')
-            res.end(data)
+            res.writeHead(200, { 'Content-Type':'text/html' })
+            res.write(data)
         }
+        res.end()
     })
     
 })
