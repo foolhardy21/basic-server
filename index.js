@@ -1,29 +1,24 @@
-const http = require('http')
-const url = require('url')
+const express = require('express')
 const fs = require('fs')
 
-const server = http.createServer((req,res) => {
-    const pathname = url.parse(req.url).pathname
+const app = express()
 
-    const filename = pathname === '/' ? './index.html' : 
-            pathname === '/contact' ? './contact-me.html' :
-            pathname === '/about' ? './about.html' : '404.html'
-
-    fs.readFile(filename, (error, data) => {
+app.get('/',(req,res) => {
+    // res.send('hi')
+    fs.readFile('index.html',(error,data) => {
         if(error) {
-            res.writeHead(404)
-            res.write('Error 404')
-            
+        // res.writeHead(404)
+        res.send('error')    
         } else {
-            res.writeHead(200, { 'Content-Type':'text/html' })
-            res.write(data)
+            // res.writeHead(200, {'Content Type': 'text/html'})
+            res.send(data)
         }
-        res.end()
+        // res.end()
     })
-    
 })
 
-server.listen(8080, () => {
+app.listen(8080,() => {
     console.log('server running')
 })
+
 
